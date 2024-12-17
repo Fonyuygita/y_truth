@@ -13,7 +13,7 @@ import {
     TrendingUp,
     MessageCircle
 } from "lucide-react";
-import { auth } from '@/auth';
+// import { auth } from '@/auth';
 import MobileBottom from './MobileBottom';
 
 const LeftBar = async () => {
