@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Rocket, X, CheckCircle, AlertTriangle } from 'lucide-react'
+import { X, CheckCircle } from 'lucide-react'
 import React from 'react'
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
 import { Input } from './ui/input'

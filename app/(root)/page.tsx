@@ -1,5 +1,5 @@
 import SearchForm from "@/components/SearchForm";
-import { auth } from "@/auth";
+// import { auth } from "@/auth";
 import Image from "next/image";
 import { samplePosts } from "@/constants/postData";
 import PostCard from "@/components/PostCards";
@@ -10,7 +10,7 @@ export default async function Home({
   searchParams: Promise<{ query?: string }>;
 }) {
   const query = (await searchParams).query;
-  const session = await auth();
+  // const session = await auth();
 
   // Filter posts based on search query if provided
   const filteredPosts = query
