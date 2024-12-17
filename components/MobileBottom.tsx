@@ -40,7 +40,7 @@ const MobileBottom = async () => {
                     {session?.user ? (
                         <Sheet>
                             <SheetTrigger asChild>
-                                <button className="hover:bg-gray-800 p-2 rounded-full">.
+                                <button className="hover:bg-gray-800 p-2 rounded-full">
                                     <MoreHorizontal className="size-6" />
                                 </button>
                             </SheetTrigger>
@@ -81,7 +81,7 @@ const MobileBottom = async () => {
                                 await signIn("github");
                             }}
                         >
-                            <button type="submit" className="hover:bg-gray-800 p-2 rounded-full">.
+                            <button type="submit" className="hover:bg-gray-800 p-2 rounded-full">
                                 <User2 className="size-6" />
                             </button>
                         </form>

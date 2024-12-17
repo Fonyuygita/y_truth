@@ -1,8 +1,8 @@
 import SearchForm from "@/components/SearchForm";
-// import StartupCard, { StartupTypeCard } from "@/components/StartupCard";
-// import { STARTUPS_QUERY } from "@/sanity/lib/queries";
-// import { sanityFetch, SanityLive } from "@/sanity/lib/live";
 import { auth } from "@/auth";
+import Image from "next/image";
+import { samplePosts } from "@/constants/postData";
+import PostCard from "@/components/PostCards";
 
 export default async function Home({
   searchParams,
@@ -10,21 +10,30 @@ export default async function Home({
   searchParams: Promise<{ query?: string }>;
 }) {
   const query = (await searchParams).query;
-  // const params = { search: query || null };
-
   const session = await auth();
 
-  console.log(session);
-
-  // const { data: posts } = await sanityFetch({ query: STARTUPS_QUERY, params });
+  // Filter posts based on search query if provided
+  const filteredPosts = query
+    ? samplePosts.filter(post =>
+      post.title.toLowerCase().includes(query.toLowerCase()) ||
+      post.description.toLowerCase().includes(query.toLowerCase())
+    )
+    : samplePosts;
 
   return (
     <>
-      <section className="pink_container !bg-black">
+      <section className="pink_container !bg-black relative">
         <h1 className="heading">
           Honesty and Legit, <br />
           Information is the key
         </h1>
+        <Image
+          src="/camLogo.png"
+          alt="cam-logo"
+          width={50}
+          height={50}
+          className="absolute left-[40%] top-3 bg-black rounded-full"
+        />
 
         <p className="sub-heading !max-w-3xl">
           The Truth Shall Set You Free.
@@ -34,22 +43,25 @@ export default async function Home({
       </section>
 
       <section className="section_container">
-        <p className="text-30-semibold">
-          {query ? `Search results for "${query}"` : "All Startups"}
+        <p className="text-30-semibold !text-white">
+          {query
+            ? `Search results for "${query}"`
+            : "Latest Posts"
+          }
         </p>
 
-        {/* <ul className="mt-7 card_grid">
-          {posts?.length > 0 ? (
-            posts.map((post: StartupTypeCard) => (
-              <StartupCard key={post?._id} post={post} />
+        <div className="mt-7 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-6">
+          {filteredPosts.length > 0 ? (
+            filteredPosts.map((post) => (
+              <PostCard key={post._id} post={post} />
             ))
           ) : (
-            <p className="no-results">No startups found</p>
+            <p className="text-white col-span-full text-center">
+              No posts found
+            </p>
           )}
-        </ul> */}
+        </div>
       </section>
-
-      {/* <SanityLive /> */}
     </>
   );
 }
