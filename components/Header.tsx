@@ -10,7 +10,7 @@ const Header = async () => {
     return (
         <>
             <div className="sticky top-0 bg-black/70 backdrop-blur-md z-40 p-4 flex justify-between items-center">
-                {session.user ? (
+                {session?.user ? (
                     <>
                         <form
                             action={async () => {
