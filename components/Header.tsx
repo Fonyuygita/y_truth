@@ -1,5 +1,5 @@
 import { auth } from '@/auth'
-import { Bell, LogOut, TrendingUp, User2 } from 'lucide-react'
+import { Bell, LogOut, TrendingUp } from 'lucide-react'
 import { signIn, signOut } from 'next-auth/react'
 import Link from 'next/link'
 import React from 'react'
