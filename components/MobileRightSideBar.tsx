@@ -138,7 +138,7 @@ const MobileRightSideBar = () => {
             <Sheet>
                 <SheetTrigger asChild>
                     <button className="fixed bottom-20 right-4 bg-blue-500 text-white p-3 rounded-full lg:hidden z-50">
-                        <TrendingUp className="size-6" />.
+                        <TrendingUp className="size-6" />
                     </button>
                 </SheetTrigger>
                 <SheetContent side="right" className="bg-black text-white overflow-y-auto">

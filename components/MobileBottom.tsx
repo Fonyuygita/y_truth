@@ -5,7 +5,7 @@ import {
     Bell,
     Mail,
     Search,
-    User2,
+
     BadgePlus,
     LogOut,
     MoreHorizontal,
