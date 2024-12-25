@@ -1,46 +1,65 @@
-import {UserIcon} from '@sanity/icons'
-import {defineArrayMember, defineField, defineType} from 'sanity'
+import { defineType, defineField } from "sanity";
 
 export const authorType = defineType({
-  name: 'author',
-  title: 'Author',
-  type: 'document',
-  icon: UserIcon,
+  name: "author",
+  title: "Author",
+  type: "document",
   fields: [
     defineField({
-      name: 'name',
-      type: 'string',
+      name: "name",
+      title: "Name",
+      type: "string",
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: 'slug',
-      type: 'slug',
+      name: "slug",
+      title: "Slug",
+      type: "slug",
       options: {
-        source: 'name',
+        source: "name",
+        maxLength: 96,
       },
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: 'image',
-      type: 'image',
+      name: "image",
+      title: "Profile Image",
+      type: "image",
       options: {
         hotspot: true,
       },
     }),
     defineField({
-      name: 'bio',
-      type: 'array',
+      name: "bio",
+      title: "Biography",
+      type: "text",
+    }),
+    defineField({
+      name: "credentials",
+      title: "Credentials",
+      type: "array",
       of: [
-        defineArrayMember({
-          type: 'block',
-          styles: [{title: 'Normal', value: 'normal'}],
-          lists: [],
-        }),
+        {
+          type: "object",
+          fields: [
+            { name: "title", type: "string" },
+            { name: "institution", type: "string" },
+            { name: "year", type: "number" },
+          ],
+        },
       ],
     }),
+    defineField({
+      name: "verificationLevel",
+      title: "Verification Level",
+      type: "string",
+      options: {
+        list: [
+          { title: "Verified Expert", value: "expert" },
+          { title: "Verified Journalist", value: "journalist" },
+          { title: "Contributor", value: "contributor" },
+        ],
+      },
+    }),
   ],
-  preview: {
-    select: {
-      title: 'name',
-      media: 'image',
-    },
-  },
-})
+});
