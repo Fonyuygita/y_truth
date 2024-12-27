@@ -47,7 +47,7 @@ const workSans = localFont({
     {
       path: "./fonts/WorkSans-ExtraLight.ttf",
       weight: "100",
-      style: "normal",
+      style: "normals",
     },
   ],
   variable: "--font-work-sans",

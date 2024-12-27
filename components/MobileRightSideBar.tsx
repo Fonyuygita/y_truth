@@ -133,6 +133,9 @@ const MobileRightSideBar = () => {
     ];
     return (
         <>
+{/* 
+        npm create sanity@latest -- --project ac4rxq8b --dataset production --template clean --typescript --output-path studio-ytruth */}
+{/* cd studio-ytruth */}
 
             {/* Mobile Right Sidebar as Sheet */}
             <Sheet>
