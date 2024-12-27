@@ -3,11 +3,16 @@ import { CheckCircle, Eye, Clock } from 'lucide-react';
 // import { Post } from './post-types';
 import { formatDistanceToNow } from 'date-fns';
 import { Post } from '@/type';
+import { STARTUPS_QUERY } from '@/sanity/lib/query';
+import { client } from '@/sanity/lib/client';
 
 interface PostCardProps {
     post: Post;
 }
 
+
+const posts = await client.fetch(STARTUPS_QUERY)
+console.log(JSON.stringify(posts, null, 2));
 const PostCard: React.FC<PostCardProps> = ({ post }) => {
     const formattedDate = formatDistanceToNow(new Date(post._createdAt), { addSuffix: true });
 

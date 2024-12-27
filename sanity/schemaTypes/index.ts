@@ -4,8 +4,9 @@ import { type SchemaTypeDefinition } from "sanity";
 // import {categoryType} from './categoryType'
 // import {postType} from './postType'
 // import {authorType} from './authorType'
-import { author } from "./newsPost";
+// import { author } from "./newsPost";
 import { startup } from "./startup";
+import { author } from "./author";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [author, startup],
@@ -15,13 +16,11 @@ export const schema: { types: SchemaTypeDefinition[] } = {
 
 // // Import all schema types
 // import { blockContentType } from "./blockContentType";
-// import { newsPost } from "./newsPostType";
-// import { author } from "./authorType";
-// import { category } from "./categoryType";
 
 // // Additional types for news verification
 // import { verificationStatus } from "./verificationStatusType";
 // import { sourceType } from "./sourceType";
+// import { author, category, newsPost } from "./newsPost";
 
 // // Export the compiled schema
 // export const schema: { types: SchemaTypeDefinition[] } = {
