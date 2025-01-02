@@ -5,10 +5,13 @@ import Link from 'next/link'
 import React from 'react'
 // import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
 import { SignedOut, SignInButton, SignedIn, UserButton } from '@clerk/nextjs'
+import { findUser } from '@/lib/findUser'
 // import { SignedIn, UserButton } from '@clerk/clerk-react'
 
 const Header = async () => {
     // const session = await auth()
+    const user = await findUser()
+    console.log(user);
     return (
         <>
             <div className="sticky top-0 bg-black/70 backdrop-blur-md z-40 p-4 flex justify-between items-center">
@@ -20,6 +23,8 @@ const Header = async () => {
                 <SignedIn>
                     <UserButton />
                 </SignedIn>
+                <UserButton />
+
                 {/* {session?.user ? (
                     <>
                         <form
