@@ -4,13 +4,25 @@ import { signIn, signOut } from 'next-auth/react'
 import Link from 'next/link'
 import React from 'react'
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
+import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/nextjs'
+import { FindUser } from '@/lib/findUser'
+
 
 const Header = async () => {
     const session = await auth()
+    const user = await FindUser()
+    console.log(user);
     return (
         <>
             <div className="sticky top-0 bg-black/70 backdrop-blur-md z-40 p-4 flex justify-between items-center">
-                {session?.user ? (
+                <SignedOut>
+                    <SignInButton />
+                </SignedOut>
+                <SignedIn>
+                    <UserButton />
+                </SignedIn>
+
+                {/* {session?.user ? (
                     <>
                         <form
                             action={async () => {
@@ -54,7 +66,7 @@ const Header = async () => {
                         </>
 
 
-                    )}
+                    )} */}
 
                 <div className="flex items-center space-x-4">
                     <TrendingUp className="size-6" />
