@@ -4,7 +4,7 @@ import { type SchemaTypeDefinition } from "sanity";
 // import {categoryType} from './categoryType'
 // import {postType} from './postType'
 // import {authorType} from './authorType'
-import { author } from "./newsPost";
+import { author } from "./author";
 import { startup } from "./startup";
 
 export const schema: { types: SchemaTypeDefinition[] } = {

@@ -4,6 +4,8 @@ import "./globals.css";
 import {
   ClerkProvider
 } from '@clerk/nextjs'
+// style for sanity studio
+import 'easymde/dist/easymde.min.css';
 
 const workSans = localFont({
   src: [
@@ -57,7 +59,7 @@ const workSans = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "YC Directory",
+  title: "TSB",
   description: "Pitch, Vote and Grow",
 };
 
