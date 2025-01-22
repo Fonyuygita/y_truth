@@ -25,6 +25,7 @@ export const FindUser = async () => {
       imageUrl: user?.imageUrl,
     },
   });
+  console.log("user created");
 
   return newUser;
 };
