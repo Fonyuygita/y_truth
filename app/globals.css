@@ -219,3 +219,43 @@
 .w-md-editor-toolbar {
   padding: 10px !important;
 }
+
+
+/* ======================== Clerk Override */
+.cl-avatarBox {
+  width: 36px;
+  height: 36px;
+  border: 1px solid #3371ff;
+}
+
+.cl-userButtonTrigger {
+  height: fit-content !important;
+}
+
+.cl-cardBox,
+.cl-signIn-start,
+.cl-signUp-start {
+  /* background: #060d18; */
+  box-shadow: 0 0.3 0.3 #2222;
+  padding: 20px;
+}
+
+.cl-footer {
+  background-color: #3371ff;
+  color: #999;
+}
+
+.cl-socialButtonsBlockButton,
+.cl-socialButtonsBlockButton:hover {
+  height: 40px;
+  background-color: #ff6f00;
+  color: #fff;
+}
+
+.cl-internal-2gzuzc {
+  filter: brightness(1000%);
+}
+
+.cl-logoBox {
+  height: 52px;
+}

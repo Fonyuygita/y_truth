@@ -1,16 +1,17 @@
-import { auth } from '@/auth'
-import { Bell, LogOut, TrendingUp } from 'lucide-react'
-import { signIn, signOut } from 'next-auth/react'
+// import { auth } from '@/auth'
+import { Bell, TrendingUp } from 'lucide-react'
+// import { signIn, signOut } from 'next-auth/react'
 import Link from 'next/link'
 import React from 'react'
-import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
+// import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
+import { SignedOut } from '@clerk/nextjs'
+import { SignedIn, SignInButton, UserButton } from '@clerk/nextjs'
 
 const Header = async () => {
-    const session = await auth()
     return (
         <>
             <div className="sticky top-0 bg-black/70 backdrop-blur-md z-40 p-4 flex justify-between items-center">
-                {session?.user ? (
+                {/* {session?.user ? (
                     <>
                         <form
                             action={async () => {
@@ -54,8 +55,14 @@ const Header = async () => {
                         </>
 
 
-                    )}
-
+                    )} */}
+                <SignedOut>
+                    <SignInButton />
+                </SignedOut>
+                <SignedIn>
+                    <UserButton />
+                </SignedIn>
+                <UserButton />
                 <div className="flex items-center space-x-4">
                     <TrendingUp className="size-6" />
                     <Bell className="size-6" />
