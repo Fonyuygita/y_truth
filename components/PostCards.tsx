@@ -2,22 +2,26 @@ import Image from 'next/image';
 import { CheckCircle, Eye, Clock } from 'lucide-react';
 // import { Post } from './post-types';
 import { formatDistanceToNow } from 'date-fns';
-import { Post } from '@/type';
+// import { Post } from '@/type';
+import { Startup } from '@/sanity/types';
+import { Author } from 'next/dist/lib/metadata/types/metadata-types';
+export type StartupTypeCard = Omit<Startup, "author"> & { author: Author }
 
-interface PostCardProps {
-    post: Post;
-}
-
-const PostCard: React.FC<PostCardProps> = ({ post }) => {
-    const formattedDate = formatDistanceToNow(new Date(post._createdAt), { addSuffix: true });
+// interface PostCardProps {
+//     post: Post;
+// }
+const verified = true
+const PostCard = ({ post }: { post: StartupTypeCard }) => {
+    const { _createdAt, _updatedAt, author, category, description, image, slug, title, views } = post
+    const formattedDate = formatDistanceToNow(new Date(_createdAt), { addSuffix: true });
 
     return (
         <div className="bg-gray-900 rounded-xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
-            {post.imageUrl && (
+            {post.image && (
                 <div className="relative h-48 w-full">
                     <Image
-                        src={post.imageUrl}
-                        alt={post.title}
+                        src={image!}
+                        alt={title as string}
                         fill
                         className="object-cover"
                     />
@@ -46,8 +50,8 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
                 <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-3">
                         <Image
-                            src={post.author.avatar}
-                            alt={post.author.name}
+                            src={author?.url as string}
+                            alt={author?.name as string}
                             width={40}
                             height={40}
                             className="rounded-full"
@@ -57,7 +61,7 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
                                 <span className="text-sm font-semibold text-white">
                                     {post.author.name}
                                 </span>
-                                {post.author.verified && (
+                                {verified && (
                                     <CheckCircle className="size-4 text-blue-500" />
                                 )}
                             </div>
@@ -68,7 +72,7 @@ const PostCard: React.FC<PostCardProps> = ({ post }) => {
                     <div className="flex items-center space-x-2 text-gray-400">
                         <Eye className="size-5" />
                         <span className="text-sm">
-                            {post.views.toLocaleString()}
+                            {views?.toLocaleString()}
                         </span>
                     </div>
                 </div>

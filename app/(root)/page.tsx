@@ -2,7 +2,10 @@ import SearchForm from "@/components/SearchForm";
 // import { auth } from "@/auth";
 import Image from "next/image";
 import { samplePosts } from "@/constants/postData";
-import PostCard from "@/components/PostCards";
+import PostCard, { StartupTypeCard } from "@/components/PostCards";
+import { client } from "@/sanity/lib/client";
+import { STARTUPS_QUERY } from "@/sanity/lib/query";
+import { Startup, Author } from "@/sanity/types";
 
 export default async function Home({
   searchParams,
@@ -13,12 +16,17 @@ export default async function Home({
   // const session = await auth();
 
   // Filter posts based on search query if provided
-  const filteredPosts = query
-    ? samplePosts.filter(post =>
-      post.title.toLowerCase().includes(query.toLowerCase()) ||
-      post.description.toLowerCase().includes(query.toLowerCase())
-    )
-    : samplePosts;
+  // const filteredPosts = query
+  //   ? samplePosts.filter(post =>
+  //     post.title.toLowerCase().includes(query.toLowerCase()) ||
+  //     post.description.toLowerCase().includes(query.toLowerCase())
+  //   )
+  //   : samplePosts;
+  // const params = { search: query || null }
+
+  // get posts from sanity client
+  const myPost = await client.fetch(STARTUPS_QUERY)
+  console.log(JSON.stringify(myPost, null, 2))
 
   return (
     <>
@@ -44,6 +52,7 @@ export default async function Home({
 
       <section className="section_container">
         <p className="text-30-semibold !text-white">
+
           {query
             ? `Search results for "${query}"`
             : "Latest Posts"
@@ -51,8 +60,8 @@ export default async function Home({
         </p>
 
         <div className="mt-7 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-6">
-          {filteredPosts.length > 0 ? (
-            filteredPosts.map((post) => (
+          {myPost.length > 0 ? (
+            myPost.map((post: StartupTypeCard) => (
               <PostCard key={post._id} post={post} />
             ))
           ) : (
