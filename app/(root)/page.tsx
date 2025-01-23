@@ -1,11 +1,12 @@
 import SearchForm from "@/components/SearchForm";
 // import { auth } from "@/auth";
 import Image from "next/image";
-import { samplePosts } from "@/constants/postData";
+// import { samplePosts } from "@/constants/postData";
 import PostCard, { StartupTypeCard } from "@/components/PostCards";
-import { client } from "@/sanity/lib/client";
+// import { client } from "@/sanity/lib/client";
 import { STARTUPS_QUERY } from "@/sanity/lib/query";
-import { Startup, Author } from "@/sanity/types";
+// import { Startup, Author } from "@/sanity/types";
+import { sanityFetch, SanityLive } from "@/sanity/lib/live";
 
 export default async function Home({
   searchParams,
@@ -25,8 +26,11 @@ export default async function Home({
   // const params = { search: query || null }
 
   // get posts from sanity client
-  const myPost = await client.fetch(STARTUPS_QUERY)
+  // const myPost = await client.fetch(STARTUPS_QUERY)
+  const params = { search: query || null };
+  const { data: myPost } = await sanityFetch({ query: STARTUPS_QUERY, params });
   console.log(JSON.stringify(myPost, null, 2))
+
 
   return (
     <>
@@ -71,6 +75,7 @@ export default async function Home({
           )}
         </div>
       </section>
+      <SanityLive />
     </>
   );
 }
