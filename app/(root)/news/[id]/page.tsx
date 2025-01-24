@@ -7,7 +7,16 @@ import { Card, CardContent } from "@/components/ui/card";
 import { client } from '@/sanity/lib/client';
 import { STARTUP_BY_ID_QUERY } from '@/sanity/lib/query';
 import { notFound } from 'next/navigation';
+import ReactMarkdown from 'react-markdown'
+// import { Components } from 'react-markdown'
+import { VideoPlayer } from '@/components/VideoPlayer';
+import { EnhancedImage } from '@/components/ImagePlayer';
+import { } from 'react';
+// // @ts-ignore
+// import markdownit from 'markdown-it';
+// // to import the styles: npm i--save - dev @types/markdown-it
 
+// const md = markdownit()
 // Dummy data
 const dummyPost = {
     _id: '1',
@@ -36,6 +45,9 @@ export default async function PostDetailsPage({ params }: { params: Promise<{ id
 
 
     if (!posts) return notFound()
+
+    // parse the markdown content so we can display it as html
+    // const parsedContent = md.render(posts?.pitch || '')
 
     return (
         <div className="bg-black text-white min-h-screen">
@@ -109,10 +121,109 @@ export default async function PostDetailsPage({ params }: { params: Promise<{ id
                     </CardContent>
                 </Card>
 
+
                 {/* Pitch */}
                 <Card className="bg-gray-900 border-gray-800">
                     <CardContent className="p-6">
-                        <h2 className="text-xl font-bold mb-4 text-white">Pitch</h2>
+                        <h2 className="text-xl font-bold mb-4 text-white">Project Details</h2>
+                        {posts?.pitch ? (
+                            <ReactMarkdown
+                                className="text-gray-300 prose prose-invert"
+                                components={{
+                                    // Custom image component
+                                    img: ({ node, src, alt, ...props }) => (
+                                        <EnhancedImage
+                                            src={src || ''}
+                                            /// <reference path="" />
+
+                                            alt={alt || 'Markdown Image'}
+                                            className="rounded-lg my-4 w-full"
+                                            {...props}
+                                        />
+                                    ),
+
+                                    // Custom video component (for markdown links to videos)
+                                    a: ({ node, href, children, ...props }) => {
+                                        // Check if the link is a video
+                                        const videoExtensions = ['.mp4', '.webm', '.ogg'];
+                                        const isVideoLink = videoExtensions.some(ext =>
+                                            href && href.toLowerCase().endsWith(ext)
+                                        );
+
+                                        if (isVideoLink) {
+                                            return (
+                                                <VideoPlayer
+                                                    src={href || ''}
+                                                    className="my-4 w-full"
+                                                    {...props}
+                                                />
+                                            );
+                                        }
+
+                                        // Regular link rendering
+                                        return (
+                                            <a
+                                                href={href}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="text-blue-400 hover:underline"
+                                                {...props}
+                                            >
+                                                {children}
+                                            </a>
+                                        );
+                                    },
+
+                                    // Other markdown elements with custom styling
+                                    h1: ({ node, ...props }) => (
+                                        <h1
+                                            className="text-3xl font-bold text-white mb-4 border-b pb-2"
+                                            {...props}
+                                        />
+                                    ),
+                                    h2: ({ node, ...props }) => (
+                                        <h2
+                                            className="text-2xl font-semibold text-gray-200 mt-6 mb-3 border-b pb-1"
+                                            {...props}
+                                        />
+                                    ),
+                                    p: ({ node, ...props }) => (
+                                        <p
+                                            className="text-gray-300 mb-4 leading-relaxed"
+                                            {...props}
+                                        />
+                                    ),
+                                    code: ({ node, inline, className, children, ...props }) => {
+                                        const match = /language-(\w+)/.exec(className || '')
+                                        return !inline ? (
+                                            <pre
+                                                className={`bg-gray-800 p-4 rounded-lg overflow-x-auto ${match ? `language-${match[1]}` : ''}`}
+                                            >
+                                                <code
+                                                    className={`text-sm text-gray-200 ${className}`}
+                                                    {...props}
+                                                >
+                                                    {children}
+                                                </code>
+                                            </pre>
+                                        ) : (
+                                            <code
+                                                className="bg-gray-800 text-red-400 px-2 py-1 rounded text-sm"
+                                                {...props}
+                                            >
+                                                {children}
+                                            </code>
+                                        )
+                                    }
+                                }}
+                            >
+
+                                {posts.pitch}
+                            </ReactMarkdown>
+                        ) : (
+                            <p className="text-gray-300">No details available</p>
+                        )}
+
                         <p className="text-gray-300">{post.pitch}</p>
                     </CardContent>
                 </Card>
