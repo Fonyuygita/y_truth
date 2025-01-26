@@ -13,6 +13,7 @@ import ReactMarkdown from 'react-markdown'
 import { EnhancedImage } from '@/components/ImagePlayer';
 import { } from 'react';
 import { VideoPlayer } from '@/components/VideoPlayer';
+import { CommentsAndVoting } from '@/components/CommentAndVoting';
 // // @ts-ignore
 // import markdownit from 'markdown-it';
 // // to import the styles: npm i--save - dev @types/markdown-it
@@ -238,6 +239,7 @@ export default async function PostDetailsPage({ params }: { params: Promise<{ id
                     ))}
                 </div>
             </div>
+            <CommentsAndVoting />
         </div>
     );
 }
