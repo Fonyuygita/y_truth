@@ -1,11 +1,12 @@
 import Image from 'next/image'
 import { cn } from '@/lib/utils'
+import { urlFor } from '@/sanity/lib/image'
 
 interface EnhancedImageProps {
     src: string
-    alt?: string | any
-    width?: number
-    height?: number
+    alt?: string
+    width?: number | string
+    height?: number | string
     className?: string
     blurDataURL?: string
     priority?: boolean
@@ -22,14 +23,23 @@ export function EnhancedImage({
     priority = false,
     sizes = '(max-width: 768px) 100vw, 50vw'
 }: EnhancedImageProps) {
+    // Convert width and height to numbers if they're strings
+    const parsedWidth = width ? Number(width) : undefined
+    const parsedHeight = height ? Number(height) : undefined
+
+    // Handle Sanity image URLs
+    const imageUrl = src.startsWith('image-')
+        ? urlFor(src).url()
+        : src;
+
     return (
         <div className="relative w-full">
             <Image
-                src={src}
-                alt={alt}
-                width={width}
-                height={height}
-                fill={!width && !height}
+                src={imageUrl}
+                alt={alt || 'Image'}
+                width={parsedWidth || 800}
+                height={parsedHeight || 600}
+                // fill={!parsedWidth && !parsedHeight}
                 className={cn(
                     'object-cover transition-all duration-300 hover:scale-105',
                     className

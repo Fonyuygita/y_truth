@@ -9,9 +9,10 @@ import { STARTUP_BY_ID_QUERY } from '@/sanity/lib/query';
 import { notFound } from 'next/navigation';
 import ReactMarkdown from 'react-markdown'
 // import { Components } from 'react-markdown'
-import { VideoPlayer } from '@/components/VideoPlayer';
+// import { VideoPlayer } from '@/components/VideoPlayer';
 import { EnhancedImage } from '@/components/ImagePlayer';
 import { } from 'react';
+import { VideoPlayer } from '@/components/VideoPlayer';
 // // @ts-ignore
 // import markdownit from 'markdown-it';
 // // to import the styles: npm i--save - dev @types/markdown-it
