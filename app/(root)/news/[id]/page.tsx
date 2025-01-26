@@ -14,6 +14,9 @@ import { EnhancedImage } from '@/components/ImagePlayer';
 import { } from 'react';
 import { VideoPlayer } from '@/components/VideoPlayer';
 import { CommentsAndVoting } from '@/components/CommentAndVoting';
+import { Suspense } from 'react';
+import { Skeleton } from '@/components/ui/skeleton';
+import View from '@/components/View';
 // // @ts-ignore
 // import markdownit from 'markdown-it';
 // // to import the styles: npm i--save - dev @types/markdown-it
@@ -86,10 +89,15 @@ export default async function PostDetailsPage({ params }: { params: Promise<{ id
                                 <Clock className="h-5 w-5" />
                                 <span>{formattedDate}</span>
                             </div>
-                            <div className="flex items-center space-x-2">
+
+                            {/* ADD SUSPENSE: FOR THE VIEW SECTION HERE AND ADD  */}
+                            <Suspense fallback={<Skeleton className='p-3 bg-black-100 px-7' />}>
+                                <View id={id} />
+                            </Suspense>
+                            {/* <div className="flex items-center space-x-2">
                                 <Eye className="h-5 w-5" />
                                 <span>{post.views.toLocaleString()} views</span>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                 </div>
